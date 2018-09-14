@@ -25,11 +25,11 @@
   <%= render "devise/shared/links" %>
   <br>
   <% if current_page?('/users/sign_in') %>
-    <%= link_to('/admins/sign_in', {}) do %>
+    <%= link_to('/admins/sign_in') do %>
       Admin Login
     <% end %>
   <% elsif current_page?('/admins/sign_in')%>
-    <%= link_to('/users/sign_in', {}) do %>
+    <%= link_to('/users/sign_in') do %>
       User Login
     <% end %>
   <% end %>
