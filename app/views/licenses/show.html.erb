@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12">
+  <div class="col-md-3">
+    <p>
+      <strong>Title:</strong>
+      <%= @license.title %>
+    </p>
+
+    <%= link_to 'Get file', @license.file %> |
+    <%= link_to 'Edit', edit_license_path(@license) %> |
+    <%= link_to 'Back', licenses_path %>
+  </div>
+  <% if @license_data == "Invalid License"%>
+    <div class="col-md-8">
+      <h3>Invalid License</h3>
+    </div>
+  <% else %>
+  <div class="col-md-4 well license-props">
+    <ul class="license-ul">
+      <li>License Edition: <b><%= @license_data[0] %></b></li>
+      <li>License Type: <b><%= @license_data[1] %></b></li>
+      <li>Company Name: <b><%= @license_data[2] %></b></li>
+      <li>Customer ID: <b><%= @license_data[3] %></b></li>
+    </ul>
+  </div>
+  <div class="col-md-4 well license-props">
+    <ul class="license-ul">
+      <li>License ID: <b><%= @license_data[4] %></b></li>
+      <li>Contact Email: <b><%= @license_data[5] %></b></li>
+      <li>Activation Date Code: <b><%= @license_data[6] %></b></li>
+      <li>Validity License Map: <b><%= @license_data[7] %></b></li>
+      <li>Number of Total Users: <b><%= @license_data[8] %></b></li>
+    </ul>
+  </div>
+  <% end %>
+  <div class="col-md-1"></div>
+</div>

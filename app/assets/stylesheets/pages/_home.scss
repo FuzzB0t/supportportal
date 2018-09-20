@@ -4,7 +4,11 @@
 #home {
 }
 
-#login, #profile-body {
+.license-props {
+  margin: 20px;
+}
+
+#login, .middle-content {
   margin-left: 30vw;
   margin-right: 30vw;
   margin-top:20px;
@@ -15,6 +19,7 @@
 #login a {
   padding-bottom: 15px;
 }
+
 
 #footer {
   width: 100%;
@@ -32,3 +37,14 @@
   }
 }
 
+.license-ul{
+  list-style: none;
+}
+
+.license-ul li {
+  padding: 10px;
+}
+
+#license_index_tr td {
+  padding: 5px;
+}
