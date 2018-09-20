@@ -1,5 +1,4 @@
-<p id="notice"><%= notice %></p>
-<div class="col-md-12">
+<div class="col-md-12" style="padding-top: 20px; ">
   <div class="col-md-3">
     <p>
       <strong>Title:</strong>
@@ -17,19 +16,24 @@
   <% else %>
   <div class="col-md-4 well license-props">
     <ul class="license-ul">
+      <li>Company Name: <b><%= @license_data[2] %></b></li>
+      <li>License ID: <b><%= @license_data[4] %></b></li>
       <li>License Edition: <b><%= @license_data[0] %></b></li>
       <li>License Type: <b><%= @license_data[1] %></b></li>
-      <li>Company Name: <b><%= @license_data[2] %></b></li>
       <li>Customer ID: <b><%= @license_data[3] %></b></li>
     </ul>
   </div>
   <div class="col-md-4 well license-props">
     <ul class="license-ul">
-      <li>License ID: <b><%= @license_data[4] %></b></li>
       <li>Contact Email: <b><%= @license_data[5] %></b></li>
-      <li>Activation Date Code: <b><%= @license_data[6] %></b></li>
-      <li>Validity License Map: <b><%= @license_data[7] %></b></li>
+      <li>From: <b><%= @license_data[6] %></b></li>
+      <li>To: <b><%= @license_data[7] %></b></li>
       <li>Number of Total Users: <b><%= @license_data[8] %></b></li>
+      <% if !@license_data[10].nil? && !@license_data[11].nil? %>
+        <li>AWS Add On Username: <b><%= @license_data[10] %></b></li>
+        <li>AWS Add On Password: <b><%= @license_data[11] %></b></li>
+        <li>Encoded Token: <b><%= @encoded_token %></b></li>
+    <% end %>
     </ul>
   </div>
   <% end %>

@@ -3,6 +3,9 @@ require 'base64'
 class LicensesController < ApplicationController
   before_action :set_license, only: [:show, :edit, :update, :destroy]
 
+  INVALID_LICENSE = "Invalid License"
+  INVALID_LICENSE.freeze
+
   # GET /licenses
   # GET /licenses.json
   def index
@@ -14,6 +17,17 @@ class LicensesController < ApplicationController
   def show
     contentBytes = @license.file.download.bytes
     @license_data = verify_license(contentBytes)
+    @encoded_token = nil
+    if @license_data != INVALID_LICENSE
+      @license_data[6] = format_date(@license_data[6])
+      @license_data[7] = format_date(@license_data[7])
+      if !@license_data[10].nil? && !@license_data[11].nil?
+        user = @license_data[10]
+        pass = @license_data[11]
+        token = user + ":" + pass
+        @encoded_token = Base64.encode64(token).gsub(/\s+/, "")
+      end
+    end
   end
 
   # GET /licenses/new
@@ -32,7 +46,7 @@ class LicensesController < ApplicationController
 
     respond_to do |format|
       if @license.save
-        format.html { redirect_to @license, notice: 'License was successfully created.' }
+        format.html { redirect_to @license, notice: 'License was successfully imported.' }
         format.json { render :show, status: :created, location: @license }
       else
         format.html { render :new }
@@ -60,7 +74,7 @@ class LicensesController < ApplicationController
   def destroy
     @license.destroy
     respond_to do |format|
-      format.html { redirect_to licenses_url, notice: 'License was successfully destroyed.' }
+      format.html { redirect_to licenses_url, notice: 'License was successfully removed.' }
       format.json { head :no_content }
     end
   end
@@ -112,7 +126,7 @@ class LicensesController < ApplicationController
         tokens = license_encoded.split("#")
 
         if tokens.length != 2
-          return "Invalid License"
+          return INVALID_LICENSE
         end
         license_key = Base64.decode64(tokens[0])
         signature = tokens[1]
@@ -120,8 +134,56 @@ class LicensesController < ApplicationController
         license_data = license_key.split("#")
         return license_data
       rescue
-        return "Invalid License"
+        return INVALID_LICENSE
       ensure
       end
     end
+
+  private
+    def format_date(string_date)  #MMddyyyyHHmmss
+      if string_date.length < 14
+        return INVALID_LICENSE
+      end
+      begin
+        month = num2mon(string_date[0..1])
+        day = string_date[2..3]
+        year = string_date[4..7]
+        hour = string_date[8..9]
+        minute = string_date[10..11]
+        second = string_date[12..13]
+
+        return month + " " + day + ", " + year
+      rescue
+        return INVALID_LICENSE
+      end
+    end
+
+  def num2mon(num)
+    case num
+    when "01"
+      return "Jan"
+    when "02"
+      return "Feb"
+    when "03"
+      return "Mar"
+    when "04"
+      return "Apr"
+    when "05"
+      return "May"
+    when "06"
+      return "Jun"
+    when "07"
+      return "Jul"
+    when "08"
+      return "Aug"
+    when "09"
+      return "Sep"
+    when "10"
+      return "Oct"
+    when "11"
+      return "Nov"
+    when "12"
+      return "Dec"
+    end
+  end
 end

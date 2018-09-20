@@ -6,6 +6,7 @@
 
 .license-props {
   margin: 20px;
+  word-wrap: break-word;
 }
 
 #login, .middle-content {
@@ -33,18 +34,21 @@
     padding-top:18px;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 12px;
-    color: lightgrey;
+    color: lightgray;
+  }
+  a{
+    color: silver;
   }
 }
 
 .license-ul{
   list-style: none;
-}
-
-.license-ul li {
-  padding: 10px;
+  .li {
+    padding: 10px;
+  }
 }
 
 #license_index_tr td {
   padding: 5px;
 }
+
