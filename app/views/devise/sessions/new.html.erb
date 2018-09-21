@@ -1,9 +1,4 @@
 <div id="login" class="well">
-  <%if current_page?('/admins/sign_in') %>
-    <h2>Admin Log in</h2>
-    <% else %>
-    <h2>Login</h2>
-  <% end %>
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-inputs">
       <%= f.input :email,
@@ -24,13 +19,4 @@
   <br>
   <%= render "devise/shared/links" %>
   <br>
-  <% if current_page?('/users/sign_in') %>
-    <%= link_to('/admins/sign_in') do %>
-      Admin Login
-    <% end %>
-  <% elsif current_page?('/admins/sign_in')%>
-    <%= link_to('/users/sign_in') do %>
-      User Login
-    <% end %>
-  <% end %>
 </div>

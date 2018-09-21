@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :licenses
-  devise_for :admins
   devise_for :users
   root to: 'pages#home'
   get 'users/profile', to: 'pages#user'
