@@ -92,12 +92,11 @@ class LicensesController < ApplicationController
 
   private
     def verify_license(license_bytes)
-      license_key = ""
-      signature = ""
+      license_key, signature = "", ""
 
       begin
-        value = 35
-        start_point = 0
+        value, start_point = 35, 0
+
         for i in 1..license_bytes.length
           if license_bytes[i] == value && license_bytes[i+1] == value && license_bytes[i+2] == value && license_bytes[i+3] == value && license_bytes[i+4] == value
             start_point = i+5
@@ -121,9 +120,7 @@ class LicensesController < ApplicationController
         end
 
         public_key_bytes = Base64.decode64(public_key_bytes.to_s)
-        license_encoded = license_key_bytes.pack('c*')
-
-        tokens = license_encoded.split("#")
+        tokens = license_key_bytes.pack('c*').split("#")
 
         if tokens.length != 2
           return INVALID_LICENSE
@@ -131,8 +128,7 @@ class LicensesController < ApplicationController
         license_key = Base64.decode64(tokens[0])
         signature = tokens[1]
 
-        license_data = license_key.split("#")
-        return license_data
+        return license_key.split("#")
       rescue
         return INVALID_LICENSE
       ensure
@@ -157,33 +153,4 @@ class LicensesController < ApplicationController
         return INVALID_LICENSE
       end
     end
-
-  def num2mon(num)
-    case num
-    when "01"
-      return "Jan"
-    when "02"
-      return "Feb"
-    when "03"
-      return "Mar"
-    when "04"
-      return "Apr"
-    when "05"
-      return "May"
-    when "06"
-      return "Jun"
-    when "07"
-      return "Jul"
-    when "08"
-      return "Aug"
-    when "09"
-      return "Sep"
-    when "10"
-      return "Oct"
-    when "11"
-      return "Nov"
-    when "12"
-      return "Dec"
-    end
-  end
 end
