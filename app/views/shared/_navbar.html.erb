@@ -8,28 +8,62 @@
   <div class="navbar-wagon-right hidden-xs hidden-sm">
 
     <% if user_signed_in? %>
+      <%= link_to "License Decoder", "/util/licenses", :class => current_class?("/util/licenses") + " navbar-wagon-item navbar-wagon-link"  %>
 
-    <!-- Links when logged in -->
-    <%= link_to "Messages", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+      <!-- ADMIN NAVBAR -->
+      <% if current_user.admin? %>
+        <%= link_to "Manage Users", "#", class: "navbar-wagon-item navbar-wagon-link" %>
 
-    <!-- Avatar with dropdown menu -->
-    <div class="navbar-wagon-item">
-      <div class="dropdown">
-        <%= image_tag "profile-icon.png", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
-        <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-          <li>
-            <%= link_to "/users/profile" do %>
-            <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to destroy_user_session_path, method: :delete do %>
-            <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
-            <% end %>
-          </li>
-        </ul>
-      </div>
-    </div>
+        <div class="navbar-wagon-item">
+          <div class="dropdown">
+            <%= image_tag "zephyr2.png", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+            <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+              <li>
+                <%= link_to "/users/profile" do %>
+                  <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to destroy_user_session_path, method: :delete do %>
+                  <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      <!-- ADMIN NAVBAR -->
+      <% else %>
+      <!-- USER NAVBAR -->
+        <%#= link_to "Navbar Item", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+
+        <div class="navbar-wagon-item">
+          <div class="dropdown">
+            <%= image_tag "profile-icon.png", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+            <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+              <li>
+                <%= link_to "/users/profile" do %>
+                <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
+                <% end %>
+              </li>
+
+              <% if current_user.admin? %>
+              <li>
+                <%= link_to "/admin/config" do %>
+                  <i class="fa fa-user"></i> <%= t(".profile", default: "Admin Config") %>
+                <% end %>
+              </li>
+              <% end %>
+
+              <li>
+                <%= link_to destroy_user_session_path, method: :delete do %>
+                <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+      <!-- USER NAVBAR -->
     <% else %>
     <!-- Login link (when logged out) -->
     <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>

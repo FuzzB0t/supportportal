@@ -5,7 +5,12 @@
       <%= current_user.email %>
     </div>
     <div class="profile-item">
-
+      <label>Role:&ensp;</label>
+        <%if current_user.admin? %>
+          Administrator
+        <% else %>
+          Basic User
+        <% end %>
     </div>
   </div>
 </div>
