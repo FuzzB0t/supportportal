@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 #default admin
-User.create!({email: 'Krishnakant.Parate@getzephyr.com', password: 'password', password_confirmation: 'password', admin: truesu})
+User.create!({email: 'Krishnakant.Parate@getzephyr.com', password: 'password', password_confirmation: 'password', admin: true})
 User.create!({email: 'Oliver.Wemyss@getzephyr.com', password: 'password', password_confirmation: 'password', admin: true})
