@@ -8,15 +8,16 @@
   <div class="navbar-wagon-right hidden-xs hidden-sm">
 
 
-    <% if current_user.admin == true %>
+    <% if !current_user.nil? && current_user.admin? %>
 
     <!-- Links when logged in -->
     <%= link_to "Control Panel", "/admin", class: "navbar-wagon-item navbar-wagon-link" %>
-
+    <% end %>
+    <% if !current_user.nil? %>
     <!-- Avatar with dropdown menu -->
     <div class="navbar-wagon-item">
       <div class="dropdown">
-        <%= image_tag "profile-icon.png", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+        <%= image_tag "zephyr2.png", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
         <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
           <li>
             <%= link_to "/users/profile" do %>
