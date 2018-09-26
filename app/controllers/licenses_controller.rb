@@ -17,10 +17,13 @@ class LicensesController < ApplicationController
   def show
     contentBytes = @license.file.download.bytes
     @license_data = verify_license(contentBytes)
+    puts @license_data
     @encoded_token = nil
     if @license_data != INVALID_LICENSE
       @license_data[6] = format_date(@license_data[6])
-      @license_data[7] = format_date(@license_data[7])
+      data_and_paid_users = @license_data[7].split(":")
+      @license_data[7] = format_date(data_and_paid_users[0])
+      @license_data[12] = data_and_paid_users[1]
       if !@license_data[10].nil? && !@license_data[11].nil?
         user = @license_data[10]
         pass = @license_data[11]
@@ -153,4 +156,34 @@ class LicensesController < ApplicationController
         return INVALID_LICENSE
       end
     end
+
+  def num2mon(num)
+    case num
+    when "01"
+      return "Jan"
+    when "02"
+      return "Feb"
+    when "03"
+      return "Mar"
+    when "04"
+      return "Apr"
+    when "05"
+      return "May"
+    when "06"
+      return "Jun"
+    when "07"
+      return "Jul"
+    when "08"
+      return "Aug"
+    when "09"
+      return "Sep"
+    when "10"
+      return "Oct"
+    when "11"
+      return "Nov"
+    when "12"
+      return "Dec"
+    end
+  end
+
 end
